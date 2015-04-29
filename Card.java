@@ -14,9 +14,9 @@ public class Card
    public static final int JACK = 11;
    
    public static final int SPADES = 1;
-   public static final int HEARTS = 2;    
-   public static final int CLUBS = 3;     
-   public static final int DIAMONDS = 4;  
+   public static final int HEARTS = 2;         
+   public static final int DIAMONDS = 3;
+   public static final int CLUBS = 4;  
    
    public String rankString;              //holds the rank as an string
    public String suitString;              //holds the rank as an string
@@ -43,12 +43,12 @@ public class Card
          suitString = "Hearts";
          break;
          
-         case CLUBS:
-         suitString = "Clubs";
-         break;
-         
          case DIAMONDS:
          suitString = "Diamonds";
+         break;
+         
+         case CLUBS:
+         suitString = "Clubs";
          break;
       }
       
