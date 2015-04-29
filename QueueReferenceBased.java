@@ -20,7 +20,7 @@ public class QueueReferenceBased  implements QueueInterface{
       @param newItem is the item to be inserted.
       @throwsQueueException if newItem cannot be added to the queue.
   */
-  public void enqueue(Object newItem) {
+  public void enqueue(Card newItem) {
     Node newNode = new Node(newItem);
 
     // insert the new node
@@ -52,7 +52,7 @@ public class QueueReferenceBased  implements QueueInterface{
          is returned 
       @throws QueueException if the operation is impossible
   */  
-  public Object dequeue() throws QueueException {
+  public Card dequeue() throws QueueException {
     if (!isEmpty()) {
       // queue is not empty; remove front
       Node firstNode = lastNode.getNext();
@@ -74,7 +74,7 @@ public class QueueReferenceBased  implements QueueInterface{
       @throws QueueException if the operation is impossible
   */
 
-  public Object peek() throws QueueException {
+  public Card peek() throws QueueException {
     if (!isEmpty()) {
       // queue is not empty; retrieve front
       Node firstNode = lastNode.getNext();

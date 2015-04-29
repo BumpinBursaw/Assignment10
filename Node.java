@@ -3,14 +3,14 @@
 */
 
 public class Node {
-  private Object item;
+  private Card item;
   private Node next;
 
   /** Create new node with specified data
       Have it reference null
       @param newItem is data to added to new node
   */
-  public Node(Object newItem) {
+  public Node(Card newItem) {
     item = newItem;
     next = null;
   } 
@@ -21,21 +21,21 @@ public class Node {
       @param nextNode is reference that new Node's next will hold
       
   */
-  public Node(Object newItem, Node nextNode) {
+  public Node(Card newItem, Node nextNode) {
     item = newItem;
     next = nextNode;
   } 
   /** set data field (item) of Node
       @param newItem, to set item field to
   */
-  public void setItem(Object newItem) {
+  public void setItem(Card newItem) {
     item = newItem;
   } // end setItem
 
   /** get data field (item) of Node
       @return item field
   */
-  public Object getItem() {
+  public Card getItem() {
     return item;
   } 
 
