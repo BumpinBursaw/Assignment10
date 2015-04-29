@@ -31,17 +31,28 @@ public class Card
    public Card(int rank, int suit)
    {
       this.rank = rank;
-      this.Suit = suit;
-         
-   }
-
-   /**
-   This getSuit mehtod return the Suit to the user as an int
-   @return suit the suit of the card
-   */
-   public int getRank()
-   {
+      this.suit = suit;
+      
       switch(suit)
+      {
+         case SPADES:
+         suitString = "Spades";
+         break;
+         
+         case HEARTS:
+         suitString = "Hearts";
+         break;
+         
+         case CLUBS:
+         suitString = "Clubs";
+         break;
+         
+         case DIAMONDS:
+         suitString = "Diamonds";
+         break;
+      }
+      
+      switch(rank)
       {
          case 2:
          rankString = "Two";
@@ -56,73 +67,64 @@ public class Card
          break;
          
          case 5:
-         rankString = "Five"
+         rankString = "Five";
          break;
          
          case 6:
-         rankString = "Six"
+         rankString = "Six";
          break;
          
          case 7:
-         rankString = "Seven"
+         rankString = "Seven";
          break;
          
          case 8:
-         rankString = "Eight"
+         rankString = "Eight";
          break;
          
          case 9:
-         rankString = "Nine"
+         rankString = "Nine";
          break;
          
          case 10:
-         rankString = "Ten"
+         rankString = "Ten";
          break;
          
          case JACK:
-         rankString = "Jack"
+         rankString = "Jack";
          break;
          
          case QUEEN:
-         rankString = "Queen"
+         rankString = "Queen";
          break;
          
          case KING:
-         rankString = "King"
+         rankString = "King";
          break;
          
          case ACE:
-         rankString = "Ace"
+         rankString = "Ace";
          break;
       }
-      return rankString;
+         
+   }
+
+   /**
+   This getSuit mehtod return the Suit to the user as an int
+   @return suit the suit of the card
+   */
+   public int getRank()
+   {
+      return rank;
    }
       
    /**
    This getRank method gives the user a rank based on an integer
    @return rank the rank of the card
    */
-   public int getRank()
+   public int getSuit()
    {
-      switch(suit)
-      {
-         case SPADES:
-         suitString = "Spades"
-         break;
-         
-         case HEARTS:
-         suitString = "Hearts"
-         break;
-         
-         case CLUBS:
-         suitString = "Clubs"
-         break;
-         
-         case DIAMONDS:
-         suitString = "Diamonds"
-         break;
-      }
-      return suitString;
+      return suit;
    }
    
    /**
