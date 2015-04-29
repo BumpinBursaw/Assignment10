@@ -135,7 +135,7 @@ public class Card
    }
 
    /**
-   This getSuit mehtod return the Suit to the user as an int
+   This getSuit method return the Suit to the user as an int
    @return suit the suit of the card
    */
    public int getRank()
@@ -150,6 +150,15 @@ public class Card
    public int getSuit()
    {
       return suit;
+   }
+   
+   /**
+   This getImageID method returns the imageID to the user as an string
+   @return imageID the imageID of the card
+   */
+   public String getImageID()
+   {
+      return imageID;
    }
    
    /**
