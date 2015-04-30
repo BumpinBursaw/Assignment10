@@ -40,6 +40,7 @@ public class Card
       this.suit = suit;
       
       String sID;       //for the suit imageID part
+      String rID;       //for the rank imageID part
       
       switch(suit)
       {
@@ -74,63 +75,77 @@ public class Card
       {
          case 2:
          rankString = "Two";
+         rID = "2";
          break;
          
          case 3:
          rankString = "Three";
+         rID = "3";
          break;
          
          case 4:
          rankString = "Four";
+         rID = "4";
          break;
          
          case 5:
          rankString = "Five";
+         rID = "5";
          break;
          
          case 6:
          rankString = "Six";
+         rID = "6";
          break;
          
          case 7:
          rankString = "Seven";
+         rID = "7";
          break;
          
          case 8:
          rankString = "Eight";
+         rID = "8";
          break;
          
          case 9:
          rankString = "Nine";
+         rID = "9";
          break;
          
          case 10:
          rankString = "Ten";
+         rID = "10";
          break;
          
          case JACK:
          rankString = "Jack";
+         rID = rankString.toLowerCase();;
          break;
          
          case QUEEN:
          rankString = "Queen";
+         rID = rankString.toLowerCase();;
          break;
          
          case KING:
          rankString = "King";
+         rID = rankString.toLowerCase();;
          break;
          
          case ACE:
          rankString = "Ace";
+         rID = rankString.toLowerCase();
          break;
          
          default:
          rankString = "Ace";
+         rID = rankString.toLowerCase();
          break;
       }
       
       //creates the string to associate it with an image
-      imageID = rankString.toLowerCase() + sID + ".jpg";
+      imageID = "pictures\\" + rID + sID + ".jpg";
          
    }
 
