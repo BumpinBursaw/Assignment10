@@ -1,8 +1,14 @@
+/*	Allan	Bursaw
+ CS 110
+ Assignment	10 - War Program
+ This	program simulates the kids card game war
+*/
+
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
-public class War extends JFrame
+public class War extends JFrame implements WarInterface
 {
    
    private JPanel buttonPanel;         //panel for buttons
@@ -22,6 +28,7 @@ public class War extends JFrame
    String winner = "None";             //holds the winner of a round
    boolean canDraw = true;             //tells if the user may draw
    boolean roundOver = false;          //tells if the round is over
+   boolean tie = false;                        //if there is a tie starts the war
    
    //place holder on the playing field icon
    ImageIcon nullCard = new ImageIcon("face.jpg");                      
@@ -64,8 +71,8 @@ public class War extends JFrame
       setVisible(true);
       
    }
-   
-   private void buildImagePanelEast()
+   //player 1 right side panel setup
+   public void buildImagePanelEast()
    {
       imagePanelEast = new JPanel();
       
@@ -74,7 +81,8 @@ public class War extends JFrame
       imagePanelEast.add(imageLabelEast);
    }
    
-   private void buildImagePanelWest()
+   //player 2 left side panel setup
+   public void buildImagePanelWest()
    {
       imagePanelWest = new JPanel();
       
@@ -83,7 +91,7 @@ public class War extends JFrame
       imagePanelWest.add(imageLabelWest);
    }
    
-   private void buildButtonPanel()
+   public void buildButtonPanel()
    {
    
       //sets up a deck and shuffles the cards in it
@@ -98,43 +106,79 @@ public class War extends JFrame
          Player2Deck.enqueue(warDeck.dealCard());
       }
       
+      //draw card button
       drawCard = new JButton("Draw Card");
       drawCard.addActionListener(new DrawCardButtonListener());
       
+      //collect card button
       collectCard = new JButton("Collect Card");
       collectCard.addActionListener(new CollectCardButtonListener());
       
+      //puts together the button panel
       buttonPanel = new JPanel();
       buttonPanel.add(drawCard);
       buttonPanel.add(collectCard);
    }
    
+   //draw card button action
    private class DrawCardButtonListener implements ActionListener
    {
    
       public void actionPerformed(ActionEvent e)
       {
-         
+         //prevents drawing when cards still need to be collected
          if (canDraw == false)
          {
             JOptionPane.showMessageDialog(null, "Please collect cards!");
          }
          
-         else
+         else if(tie == true)
          {
+            //takes cards from the players decks and puts them on field(stack)
             Player1Field.push(Player1Deck.dequeue());
             Player2Field.push(Player2Deck.dequeue());
             cardsOnField++;
             
+            //pops values to be compared in game
             Player1 = Player1Field.pop();
             Player2 = Player2Field.pop();
             
+            //creates icons to display the cards
             ImageIcon Card1 = new ImageIcon(Player1.getImageID());
             ImageIcon Card2 = new ImageIcon(Player2.getImageID());
             
+            //puts the image of the cards up
             imageLabelEast.setIcon(Card1);
             imageLabelWest.setIcon(Card2);
             
+            //puts the cards back on the stack to be given to winner
+            Player1Field.push(Player1);
+            Player2Field.push(Player2);
+            
+            tie = false;
+            
+         }
+         
+         else
+         {
+            //takes cards from the players decks and puts them on field(stack)
+            Player1Field.push(Player1Deck.dequeue());
+            Player2Field.push(Player2Deck.dequeue());
+            cardsOnField++;
+            
+            //pops values to be compared in game
+            Player1 = Player1Field.pop();
+            Player2 = Player2Field.pop();
+            
+            //creates icons to display the cards
+            ImageIcon Card1 = new ImageIcon(Player1.getImageID());
+            ImageIcon Card2 = new ImageIcon(Player2.getImageID());
+            
+            //puts the image of the cards up
+            imageLabelEast.setIcon(Card1);
+            imageLabelWest.setIcon(Card2);
+            
+            //puts the cards back on the stack to be given to winner
             Player1Field.push(Player1);
             Player2Field.push(Player2);
             
@@ -143,7 +187,6 @@ public class War extends JFrame
                winner = "Player 1";
                canDraw = false;
                roundOver = true;
-               System.out.println(Player1);
             }
             
             else if(Player1.getRank() < Player2.getRank())
@@ -156,19 +199,7 @@ public class War extends JFrame
             else
             {
                JOptionPane.showMessageDialog(null, "We have a tie!");
-               Player1Field.push(Player1Deck.dequeue());
-               Player2Field.push(Player2Deck.dequeue());
-               cardsOnField++;
-            
-               Player1 = Player1Field.pop();
-               Player2 = Player2Field.pop();
-                              
-               imageLabelEast.setIcon(Card1);
-               imageLabelWest.setIcon(Card2);
-               
-               Player1Field.push(Player1);
-               Player2Field.push(Player2);
-                 
+               tie = true;   
             }  
          }         
          
@@ -176,10 +207,12 @@ public class War extends JFrame
       
    }
    
+   //collect card button action
    private class CollectCardButtonListener implements ActionListener
    {
       public void actionPerformed(ActionEvent f)
       {  
+         //prevents collecting cards when there is no winner
          if(roundOver == false)
          {
             JOptionPane.showMessageDialog(null, "There is currently no winner");
@@ -192,6 +225,7 @@ public class War extends JFrame
                case "Player 1":
                for(int p = 0; p < cardsOnField; p++)
                {
+                  //gives cards to winner and sets up next round
                   Player1Deck.enqueue(Player1Field.pop());
                   Player1Deck.enqueue(Player2Field.pop());
                   canDraw = true;
@@ -205,7 +239,8 @@ public class War extends JFrame
                
                case "Player 2":
                for(int q = 0; q < cardsOnField; q++)
-               {
+               {  
+                  //gives cards to winner and sets up next round
                   Player2Deck.enqueue(Player1Field.pop());
                   Player2Deck.enqueue(Player2Field.pop());
                   canDraw = true;
@@ -221,22 +256,23 @@ public class War extends JFrame
                JOptionPane.showMessageDialog(null, "There is currently no winner");
                break;
             }
-            
+            //winning detectors
             if(Player1Deck.isEmpty())
             {
                JOptionPane.showMessageDialog(null, "Player 2 is the winner");
-               System.exit(1);
+               System.exit(0);
             }
             
             else if(Player2Deck.isEmpty())
             {
                JOptionPane.showMessageDialog(null, "Player 1 is the winner");
-               System.exit(1);
+               System.exit(0);
             }
          }
                    
       }
    }
+   //main method
    public static void main(String [] args) 
    {  
       new War();
